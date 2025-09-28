@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Kubernetes DevOps
 
 ## Overview
@@ -72,3 +73,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgements
 
 - Special thanks to [contributors](https://github.com/anshulc55/Kubernetes_Devops/graphs/contributors) who have made this repository possible.
+=======
+# Kubernetes-For-DevOps
+Kubernetes Demo and Sample files for DevOps
+>>>>>>> 4641ad3d52e283c146e945bd4daeb049f09a2f69
