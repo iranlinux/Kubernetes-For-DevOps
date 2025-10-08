@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: configmap-posix
-      image: iranlinux/kubernetes-web:1.10.6
+      image: mcp/kubernetesp
       ports:
         - containerPort: 8080
       envFrom:
