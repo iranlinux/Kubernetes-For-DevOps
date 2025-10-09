@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: configmap-posix
-      image: mcp/kubernetesp
+      image: nginx:latest
       ports:
         - containerPort: 8080
       envFrom:
