@@ -6,6 +6,7 @@ spec:
   containers:
     - name: configmap-posix
       image: alpine
+      command: ["sleep", "3600"]
       ports:
         - containerPort: 8080
       envFrom:
