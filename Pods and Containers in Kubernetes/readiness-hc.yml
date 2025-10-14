@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: nginx
-      image: k8s.gcr.io/nginx
+      image: nginx:latest
       livenessProbe:
         httpGet:
           path: /
