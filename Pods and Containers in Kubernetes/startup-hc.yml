@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: startup-nginx
-      image: k8s.gcr.io/nginx
+      image: nginx:latest 
       startupProbe:
         httpGet:
           path: /
