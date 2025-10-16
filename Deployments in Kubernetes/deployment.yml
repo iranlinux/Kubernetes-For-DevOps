@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: chef-server
-          image: 'chef/chefdk:4.9'
+          image: 'chef/workstation:latest'
           ports:
             - containerPort: 8080
           command:
@@ -25,7 +25,7 @@ spec:
             - '-c'
             - echo Hello from the Chef container; sleep 3600
         - name: ubuntu
-          image: 'ubuntu:18.04'
+          image: 'ubuntu:20.04'
           ports:
             - containerPort: 8080
           command:
