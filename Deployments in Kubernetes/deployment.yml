@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: chef-server
-          image: 'chef/workstation:latest'
+          image: 'chef/chef:latest'
           ports:
             - containerPort: 8080
           command:
