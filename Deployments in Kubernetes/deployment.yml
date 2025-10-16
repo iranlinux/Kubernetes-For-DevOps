@@ -27,7 +27,7 @@ spec:
         - name: ubuntu
           image: 'ubuntu:20.04'
           ports:
-            - containerPort: 8080
+            - containerPort: 8081
           command:
             - /bin/sh
           args:
