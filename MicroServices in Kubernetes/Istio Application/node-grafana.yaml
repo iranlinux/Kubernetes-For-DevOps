@@ -1,34 +1,70 @@
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
+# Prometheus
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: grafana-gateway
+  name: prometheus
+  namespace: istio-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+        - name: prometheus
+          image: prom/prometheus:v2.53.0
+          ports:
+            - containerPort: 9090
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
   namespace: istio-system
 spec:
   selector:
-    istio: ingressgateway
-  servers:
-  - port:
-      number: 15031
-      name: http-grafana
-      protocol: HTTP
-    hosts:
-    - "*"
+    app: prometheus
+  ports:
+    - port: 9090
+      targetPort: 9090
+
+# Grafana
 ---
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: grafana-vs
+  name: istio-grafana
   namespace: istio-system
 spec:
-  hosts:
-  - "*"
-  gateways:
-  - grafana-gateway
-  http:
-  - match:
-    - port: 15031
-    route:
-    - destination:
-        host: grafana
-        port:
-          number: 3000
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: istio/grafana:1.43.0
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: istio-grafana
+  namespace: istio-system
+spec:
+  type: NodePort
+  selector:
+    app: grafana
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 31031
