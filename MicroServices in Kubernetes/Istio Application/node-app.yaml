@@ -2,21 +2,20 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nodejs
-  labels: 
+  labels:
     app: nodejs
 spec:
   selector:
     app: nodejs
   ports:
-  - name: http
-    port: 8080
+    - port: 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nodejs
   labels:
-    version: v1
+    app: nodejs
 spec:
   replicas: 3
   selector:
@@ -26,10 +25,32 @@ spec:
     metadata:
       labels:
         app: nodejs
-        version: v1
     spec:
       containers:
-      - name: nodejs
-        image: anshuldevops/istio-demo:latest
-        ports:
-        - containerPort: 8080
+        - name: nodejs
+          image: hashicorp/http-echo:0.2.3
+          args: ["-text=hello from nodejs"]
+          ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-gen
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: load-gen
+  template:
+    metadata:
+      labels:
+        app: load-gen
+    spec:
+      containers:
+        - name: curl
+          image: curlimages/curl:8.4.0
+          command: ["/bin/sh","-c"]
+          args:
+            - "while true; do sleep 2; curl -sS http://nodejs:8080 >/dev/null; done"
