@@ -15,12 +15,10 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: iranlinux/istio-grafana:latest
+          image: grafana/grafana:12.2.1
           env:
             - name: GF_SECURITY_ADMIN_USER
               value: admin
-            - name: GF_SECURITY_ADMIN_PASSWORD
-              value: "YourNewPassword123"
           ports:
             - containerPort: 3000
 ---
@@ -49,7 +47,7 @@ spec:
     istio: ingressgateway
   servers:
     - port:
-        number: 15031
+        number: 31031
         name: http-grafana
         protocol: HTTP
       hosts:
@@ -70,4 +68,4 @@ spec:
         - destination:
             host: istio-grafana
             port:
-              number: 15031
+              number: 3000
