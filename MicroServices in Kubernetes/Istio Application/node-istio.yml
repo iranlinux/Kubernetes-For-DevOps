@@ -2,6 +2,7 @@ apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
   name: nodejs-gateway
+  namespace: default
 spec:
   selector:
     istio: ingressgateway
@@ -17,6 +18,7 @@ apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
   name: nodejs-dr
+  namespace: default
 spec:
   host: nodejs
   subsets:
@@ -28,6 +30,7 @@ apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: nodejs
+  namespace: default
 spec:
   hosts:
     - "*"
